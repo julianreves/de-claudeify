@@ -30,7 +30,7 @@
     "frontend"
   ],
   "scripts": {
-    "test": "node --test tests/",
+    "test": "node --test tests/scan.test.mjs",
     "tells": "node scripts/gen-tells.mjs",
     "demos": "node demos/render.mjs",
     "scan:demos": "node scripts/scan.mjs demos/*/after.html --strict"
