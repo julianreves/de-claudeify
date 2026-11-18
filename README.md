@@ -8,7 +8,7 @@ An agent skill and a scanner that strip out the eyebrows, dotted subtitles, bord
 
 The page on the right has the same business, the same content and the same call to action as the one on the left. It has no eyebrow, no badge, no cards, no gradient, no shadow and no italic word in the headline. Scale, color and whitespace do the work the boxes were doing.
 
-Open [`demos/index.html`](demos/index.html) in a browser to drag the slider yourself. Numbered markers point at every tell the scanner found.
+**[Try it live](https://julianreves.github.io/de-claudeify/demos/index.html)**: drag the slider yourself. Numbered markers point at every tell the scanner found. The same page is in [`demos/index.html`](demos/index.html) if you want to open it from a clone.
 
 ## Install
 
