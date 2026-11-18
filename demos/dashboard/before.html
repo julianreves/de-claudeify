@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parcela 41 orders</title>
+<!-- Demo page. All data is invented and the winery is fictional. This is what a generated dashboard for it tends to look like. -->
+<style>
+:root { --bg:#f8fafc; --ink:#0f172a; --muted:#64748b; --indigo:#6366f1; --line:#e2e8f0; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:"Inter", system-ui, sans-serif; display:flex; min-height:100vh; }
+aside { width:240px; background:#fff; border-right:1px solid var(--line); padding:28px 20px; flex:none; }
+aside .logo { font-weight:700; font-size:20px; margin-bottom:32px; background:linear-gradient(90deg,#6366f1,#a855f7); -webkit-background-clip:text; background-clip:text; color:transparent; }
+aside a { display:block; padding:10px 14px; border-radius:10px; color:var(--muted); text-decoration:none; margin-bottom:4px; font-size:15px; }
+aside a.active { background:rgba(99,102,241,.1); color:var(--indigo); font-weight:600; }
+main { flex:1; padding:36px 44px; min-width:0; }
+.top { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; }
+.top h1 { font-size:28px; margin:0; }
+.top p { margin:4px 0 0; color:var(--muted); }
+.live { display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:#dcfce7; color:#15803d; font-size:13px; font-weight:600; }
+.live .dot { width:8px; height:8px; border-radius:50%; background:#22c55e; animation:pulse 1.6s infinite; }
+@keyframes pulse { 50% { opacity:.3; } }
+.stats { display:grid; grid-template-columns:repeat(5,1fr); gap:20px; margin-bottom:24px; }
+.row { display:grid; grid-template-columns:2fr 1fr; gap:24px; }
+.row .panel { min-width:0; }
+.progress { margin-bottom:18px; }
+.progress .line { display:flex; justify-content:space-between; font-size:14px; margin-bottom:6px; }
+.progress .track { height:10px; border-radius:999px; background:#e2e8f0; overflow:hidden; }
+.progress .fill { height:100%; border-radius:999px; background:linear-gradient(90deg,#6366f1,#a855f7); }
+.attention { border-radius:12px; background:#fef2f2; padding:14px 16px; margin-bottom:12px; font-size:14px; }
+.stat-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:22px; box-shadow:0 4px 16px rgba(15,23,42,.06); transition:all .25s ease; }
+.stat-card:hover { transform:translateY(-3px); box-shadow:0 14px 30px rgba(15,23,42,.12); }
+.icon-box { width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:18px; background:linear-gradient(135deg,#6366f1,#8b5cf6); margin-bottom:16px; }
+.stat-card .label { font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); }
+.stat-card .value { font-size:32px; font-weight:700; margin:6px 0; }
+.badge { display:inline-block; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:600; }
+.badge.up { background:#dcfce7; color:#15803d; }
+.badge.down { background:#fee2e2; color:#b91c1c; }
+.panel { background:#fff; border:1px solid var(--line); border-radius:16px; padding:26px; box-shadow:0 4px 16px rgba(15,23,42,.06); margin-bottom:24px; }
+.panel h2 { margin:0 0 4px; font-size:18px; }
+.panel .sub { color:var(--muted); font-size:14px; margin:0 0 20px; }
+.bars { display:flex; align-items:flex-end; gap:16px; height:160px; }
+.bars div { flex:1; border-radius:8px 8px 0 0; background:linear-gradient(180deg,#818cf8,#6366f1); }
+.days { display:flex; gap:16px; margin-top:8px; color:var(--muted); font-size:12px; }
+.days span { flex:1; text-align:center; }
+table { width:100%; border-collapse:collapse; font-size:14px; }
+th, td { border:1px solid var(--line); padding:12px 14px; text-align:left; }
+th { background:#f1f5f9; text-transform:uppercase; letter-spacing:.08em; font-size:11px; color:var(--muted); }
+.callout { margin-top:20px; padding:16px 20px; border-radius:12px; background:#eef2ff; border-left:4px solid var(--indigo); font-size:14px; }
+</style>
+</head>
+<body>
+<aside>
+  <div class="logo">Parcela 41</div>
+  <a class="active" href="#">📊 Dashboard</a><a href="#">📦 Orders</a><a href="#">🍷 Wines</a><a href="#">👥 Customers</a><a href="#">⚙️ Settings</a>
+</aside>
+<main>
+  <div class="top">
+    <div><h1>Welcome back, Marta 👋</h1><p>Here's what's happening with your orders today.</p></div>
+    <span class="live"><span class="dot"></span> Live</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card"><div class="icon-box">📦</div><div class="label">Total orders</div><div class="value">128</div><span class="badge up">↑ 12.3%</span></div>
+    <div class="stat-card"><div class="icon-box">💰</div><div class="label">Revenue</div><div class="value">€18,640</div><span class="badge up">↑ 8.2%</span></div>
+    <div class="stat-card"><div class="icon-box">🚚</div><div class="label">Late orders</div><div class="value">2</div><span class="badge down">↓ 3.1%</span></div>
+    <div class="stat-card"><div class="icon-box">✅</div><div class="label">On-time</div><div class="value">98.4%</div><span class="badge up">↑ 1.1%</span></div>
+    <div class="stat-card"><div class="icon-box">⭐</div><div class="label">Avg rating</div><div class="value">4.8</div><span class="badge up">↑ 0.2</span></div>
+  </div>
+
+  <div class="row">
+    <div class="panel">
+      <h2>Orders this week</h2>
+      <p class="sub">Daily order volume · Last 7 days · All channels</p>
+      <div class="bars"><div style="height:54%"></div><div style="height:62%"></div><div style="height:46%"></div><div style="height:69%"></div><div style="height:85%"></div><div style="height:100%"></div><div style="height:77%"></div></div>
+      <div class="days"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+    </div>
+    <div class="panel">
+      <h2>Sales by channel</h2>
+      <p class="sub">Where your revenue comes from</p>
+      <div class="progress"><div class="line"><span>Web shop</span><b>54%</b></div><div class="track"><div class="fill" style="width:54%"></div></div></div>
+      <div class="progress"><div class="line"><span>Tasting room</span><b>22%</b></div><div class="track"><div class="fill" style="width:22%"></div></div></div>
+      <div class="progress"><div class="line"><span>Restaurants</span><b>17%</b></div><div class="track"><div class="fill" style="width:17%"></div></div></div>
+      <div class="progress"><div class="line"><span>Export</span><b>7%</b></div><div class="track"><div class="fill" style="width:7%"></div></div></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="panel">
+      <h2>Sales over time</h2>
+      <p class="sub">Weekly revenue · Last 12 weeks</p>
+      <svg viewBox="0 0 700 180" width="100%" role="img" aria-label="Sales trend"><defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6366f1" stop-opacity=".35"/><stop offset="1" stop-color="#6366f1" stop-opacity="0"/></linearGradient></defs><path d="M0,150 L64,142 L128,128 L192,132 L256,112 L320,96 L384,82 L448,74 L512,52 L576,40 L640,36 L700,18 L700,180 L0,180 Z" fill="url(#g)"/><path d="M0,150 L64,142 L128,128 L192,132 L256,112 L320,96 L384,82 L448,74 L512,52 L576,40 L640,36 L700,18" fill="none" stroke="#6366f1" stroke-width="3"/></svg>
+    </div>
+    <div class="panel">
+      <h2>Needs attention</h2>
+      <p class="sub">Orders that require action</p>
+      <div class="attention">⚠️ <b>Order #4820</b> is 3 days late</div>
+      <div class="attention">⚠️ <b>Order #4818</b> is 1 day late</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Recent orders</h2>
+    <p class="sub">The latest activity in your store</p>
+    <table>
+      <tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th></tr>
+      <tr><td>#4821</td><td>María Gómez</td><td>€186.00</td><td><span class="badge up">Delivered</span></td></tr>
+      <tr><td>#4820</td><td>Luis Ortega</td><td>€412.50</td><td><span class="badge down">Late</span></td></tr>
+      <tr><td>#4819</td><td>Ana Ruiz</td><td>€96.90</td><td><span class="badge up">Delivered</span></td></tr>
+      <tr><td>#4818</td><td>Pedro Salas</td><td>€231.20</td><td><span class="badge down">Late</span></td></tr>
+    </table>
+    <div class="callout">💡 <b>Pro tip:</b> Contact late customers within 24 hours to improve your rating.</div>
+  </div>
+</main>
+</body>
+</html>

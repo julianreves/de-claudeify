@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De-Claudeify: drag to remove the tells</title>
+<meta name="description" content="Drag the slider. On the left, a page the way a model builds it by default. On the right, the same page after De-Claudeify.">
+<style>
+:root { --bg:#ffffff; --ink:#111318; --muted:#6a7078; --accent:#d62718; --black:#000000; --grey:#f2f2f2; --pad:clamp(20px, 7.2vw, 104px); }
+* { box-sizing:border-box; }
+html { overflow-x:clip; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:Arial, Helvetica, sans-serif; line-height:1.45; overflow-x:clip; font-variant-numeric:tabular-nums; }
+a { color:inherit; }
+a:focus-visible, button:focus-visible, .handle:focus-visible { outline:3px solid var(--ink); outline-offset:3px; }
+h1, h2, p, ol { margin:0; }
+button { font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer; text-align:left; }
+
+.top { display:flex; align-items:baseline; gap:clamp(16px, 2.4vw, 36px); padding:30px var(--pad) 0; font-size:16px; }
+.top .logo { margin-right:auto; display:block; line-height:0; }
+.top .logo img { display:block; width:auto; }
+.top button[aria-pressed="true"] { font-weight:700; text-decoration:underline; text-underline-offset:5px; text-decoration-thickness:2px; }
+
+.intro { display:flex; justify-content:space-between; align-items:flex-end; gap:40px; padding:clamp(22px, 2.6vw, 40px) var(--pad) clamp(18px, 2vw, 28px); }
+h1 { font-size:clamp(34px, 4.8vw, 70px); line-height:.96; letter-spacing:-.04em; font-weight:700; }
+.lead { margin-top:14px; font-size:clamp(15px, 1.2vw, 18px); color:var(--muted); max-width:640px; }
+.counts { display:flex; gap:clamp(20px, 3vw, 48px); flex:none; }
+.counts p { text-align:right; }
+.counts b { display:block; font-size:clamp(44px, 5.2vw, 76px); line-height:.9; letter-spacing:-.045em; font-weight:700; }
+.counts .f b { color:var(--accent); }
+.counts .w b { color:var(--ink); }
+.counts span { display:block; margin-top:8px; font-size:13px; font-weight:700; color:var(--muted); }
+
+.labels { display:flex; justify-content:space-between; padding:0 var(--pad) 10px; font-size:14px; font-weight:700; }
+.stage { position:relative; margin:0 var(--pad); background:var(--grey); }
+.scroll { height:420px; overflow-y:auto; overflow-x:hidden; }
+.content { position:relative; width:100%; }
+.layer { position:absolute; inset:0; overflow:hidden; background:#fff; }
+.layer iframe { position:absolute; left:0; top:0; width:1440px; border:0; background:#fff; transform-origin:0 0; pointer-events:none; }
+#before { background:transparent; }
+.marker { position:absolute; width:30px; height:30px; margin:-15px 0 0 -15px; border-radius:50%; background:var(--accent); color:#fff; font-size:14px; font-weight:700; text-align:center; line-height:30px; transition:background-color .15s, color .15s; z-index:3; }
+.marker.on { background:var(--black); }
+.handle { position:absolute; top:0; bottom:0; width:44px; margin-left:-22px; cursor:ew-resize; touch-action:none; z-index:5; }
+.handle::before { content:""; position:absolute; left:21px; top:0; bottom:0; width:2px; background:#fff; mix-blend-mode:difference; }
+.grip { position:absolute; left:50%; top:50%; width:52px; height:52px; margin:-26px 0 0 -26px; border-radius:50%; background:#fff; border:3px solid var(--black); color:var(--black); font-size:18px; font-weight:700; text-align:center; line-height:46px; letter-spacing:-.05em; }
+.side .layer { width:50%; }
+.side #after { left:50%; }
+.side #before { clip-path:none !important; }
+.side .handle { display:none; }
+.gifbar { display:none; margin:0; padding:16px 26px 14px; font-size:30px; font-weight:700; letter-spacing:-.02em; }
+.gif .top, .gif .intro, .gif .labels, .gif .hint, .gif .legend, .gif .use, .gif .fine, .gif .marker { display:none; }
+.gif .gifbar { display:block; }
+.gif .stage { margin:0; }
+.hint { padding:12px var(--pad) 0; font-size:13px; color:var(--muted); }
+
+.legend { padding:clamp(72px, 9vw, 140px) var(--pad) 0; }
+.legend h2, .use h2 { font-size:clamp(30px, 3.6vw, 56px); line-height:1.04; letter-spacing:-.03em; font-weight:700; margin-bottom:clamp(32px, 4vw, 60px); max-width:700px; }
+.legend ol { list-style:none; padding:0; display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); column-gap:clamp(32px, 7vw, 120px); row-gap:6px; }
+.legend li button { display:grid; grid-template-columns:44px minmax(0,1fr); column-gap:8px; padding:10px 0; width:100%; }
+.legend .n { color:var(--accent); font-weight:700; font-size:18px; }
+.legend .t { font-size:clamp(16px, 1.3vw, 19px); font-weight:700; }
+.legend .r { display:block; margin-top:2px; font-size:13px; color:var(--muted); font-weight:400; }
+.legend li button.on .t { color:var(--accent); }
+
+.use { padding:clamp(80px, 10vw, 160px) var(--pad) clamp(64px, 8vw, 120px); }
+.use pre { margin:0 0 28px; font:16px/1.7 Menlo, Consolas, monospace; white-space:pre-wrap; }
+.use p { font-size:clamp(17px, 1.4vw, 21px); max-width:620px; }
+.fine { padding:0 var(--pad) 56px; font-size:12px; font-weight:500; color:var(--muted); max-width:760px; }
+
+@media (max-width: 760px) {
+  .intro { flex-direction:column; align-items:flex-start; }
+  .legend ol { grid-template-columns:1fr; }
+  .top { flex-wrap:wrap; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="https://github.com/julianreves/de-claudeify"><img src="../assets/logo.png" alt="De-Claudeify" height="30"></a>
+  <button type="button" data-demo="landing" aria-pressed="true">Page</button>
+  <button type="button" data-demo="dashboard" aria-pressed="false">Dashboard</button>
+  <button type="button" data-demo="slide" aria-pressed="false">Slide</button>
+  <a href="https://github.com/julianreves/de-claudeify">GitHub</a>
+</header>
+
+<section class="intro">
+  <div>
+    <h1>Drag to remove the tells.</h1>
+    <p class="lead">On the left, a page the way a model builds it by default. On the right, the same page after De-Claudeify. The numbers are what the scanner finds.</p>
+  </div>
+  <div class="counts" aria-live="off">
+    <p class="f"><b id="nf">0</b><span>FAIL</span></p>
+    <p class="w"><b id="nw">0</b><span>WARN</span></p>
+  </div>
+</section>
+
+<p class="gifbar" id="gifbar">Before</p>
+<div class="labels"><span>Generated by default</span><span>After De-Claudeify</span></div>
+<section class="stage" id="stage">
+  <div class="scroll" id="scroll">
+    <div class="content" id="content">
+      <div class="layer" id="after"><iframe id="fa" title="The page after De-Claudeify" tabindex="-1"></iframe></div>
+      <div class="layer" id="before"><iframe id="fb" title="The page as a model builds it by default" tabindex="-1"></iframe><div id="markers"></div></div>
+    </div>
+  </div>
+  <div class="handle" id="handle" role="slider" tabindex="0" aria-label="Compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span class="grip">&lsaquo;&rsaquo;</span></div>
+</section>
+<p class="hint">Scroll inside the page. Click a number to see what it is.</p>
+<noscript><p class="hint">This page needs JavaScript to compare the two versions. The before and after files are in the demos folder.</p></noscript>
+
+<section class="legend">
+  <h2>What the scanner found</h2>
+  <ol id="legend"></ol>
+</section>
+
+<section class="use">
+  <h2>Use it on your own pages.</h2>
+  <pre>git clone https://github.com/julianreves/de-claudeify.git
+node de-claudeify/scripts/install.mjs</pre>
+  <p>Then ask your agent to build a page with De-Claudeify, or to clean one you already have.</p>
+</section>
+<p class="fine">Bodega Parcela 41 is a fictional winery and every figure on these pages is invented. De-Claudeify is an independent project. It is not affiliated with or endorsed by Anthropic.</p>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  var DEMOS = window.DC_DEMOS || {};
+  var q = new URLSearchParams(location.search);
+  var still = q.has('still');
+  var side = q.get('view') === 'side';
+  var gif = q.get('view') === 'gif';
+  var startY = parseFloat(q.get('y') || '0') || 0;
+  if (gif) document.body.classList.add('gif');
+  if (still) document.querySelectorAll('.hint').forEach(function (h) { h.hidden = true; });
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cur = DEMOS[q.get('demo')] ? q.get('demo') : 'landing';
+  var pos = q.has('x') ? clamp(parseFloat(q.get('x'))) : 0.5;
+  var s = 1;
+  if (side) { document.querySelector('.stage').classList.add('side'); document.querySelector('h1').textContent = 'Here is the same page before and after.'; }
+  var $ = function (id) { return document.getElementById(id); };
+  var stage = $('stage'), scroll = $('scroll'), content = $('content'), fb = $('fb'), fa = $('fa');
+  var beforeLayer = $('before'), handle = $('handle'), markers = $('markers'), legend = $('legend');
+
+  function clamp(v) { return isNaN(v) ? 0.5 : Math.min(1, Math.max(0, v)); }
+
+  function layout() {
+    var d = DEMOS[cur]; if (!d) return;
+    var W = stage.clientWidth / (side ? 2 : 1); s = W / 1440;
+    var full = Math.max(d.hb, d.ha) * s;
+    content.style.height = full + 'px';
+    scroll.style.height = gif ? (810 * s) + 'px' : Math.min(full, Math.max(380, Math.min(window.innerHeight - 300, 780))) + 'px';
+    if (gif) scroll.scrollTop = startY * s;
+    fb.style.height = d.hb + 'px'; fa.style.height = d.ha + 'px';
+    fb.style.transform = fa.style.transform = 'scale(' + s + ')';
+    Array.prototype.forEach.call(markers.children, function (el, i) {
+      var m = d.markers[i];
+      el.style.left = (m.at === 'left' ? Math.max(22, m.ax * s - 30) : m.ax * s + 24) + 'px';
+      el.style.top = (m.at === 'left' ? m.ay * s : m.ay * s + 24) + 'px';
+    });
+  }
+
+  function setPos(p) {
+    pos = clamp(p);
+    beforeLayer.style.clipPath = 'inset(0 ' + ((1 - pos) * 100) + '% 0 0)';
+    handle.style.left = (pos * 100) + '%';
+    handle.setAttribute('aria-valuenow', Math.round(pos * 100));
+    handle.style.visibility = (gif && (pos < 0.01 || pos > 0.995)) ? 'hidden' : 'visible';
+    $('gifbar').textContent = pos > 0.995 ? 'Before' : 'After';
+    $('gifbar').style.color = pos > 0.995 ? 'var(--accent)' : 'var(--ink)';
+    var d = DEMOS[cur];
+    if (side) { $('nf').textContent = d.fail; $('nw').textContent = d.warn; return; }
+    if (d) { $('nf').textContent = Math.round(d.fail * pos); $('nw').textContent = Math.round(d.warn * pos); }
+  }
+
+  function highlight(n, on) {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-n="' + n + '"]'), function (el) { el.classList.toggle('on', on); });
+  }
+
+  function animateTo(target, ms) {
+    if (reduce || !ms) { setPos(target); return; }
+    var from = pos, t0 = performance.now();
+    (function step(now) {
+      var k = Math.min(1, (now - t0) / ms), e = 1 - Math.pow(1 - k, 3);
+      setPos(from + (target - from) * e);
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  function build() {
+    var d = DEMOS[cur];
+    fb.src = cur + '/before.html'; fa.src = cur + '/after.html';
+    markers.textContent = ''; legend.textContent = '';
+    d.markers.forEach(function (m) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'marker'; b.dataset.n = m.n; b.textContent = m.n; b.setAttribute('aria-label', m.n + ': ' + m.label);
+      b.addEventListener('mouseenter', function () { highlight(m.n, true); });
+      b.addEventListener('mouseleave', function () { highlight(m.n, false); });
+      b.addEventListener('click', function () { reveal(m); });
+      markers.appendChild(b);
+      var li = document.createElement('li'), lb = document.createElement('button');
+      lb.type = 'button'; lb.dataset.n = m.n;
+      lb.innerHTML = '<span class="n"></span><span class="t"></span>';
+      lb.querySelector('.n').textContent = m.n;
+      var t = lb.querySelector('.t'); t.textContent = m.label;
+      var r = document.createElement('span'); r.className = 'r'; r.textContent = m.rules.join(', '); t.appendChild(r);
+      lb.addEventListener('mouseenter', function () { highlight(m.n, true); });
+      lb.addEventListener('mouseleave', function () { highlight(m.n, false); });
+      lb.addEventListener('click', function () { reveal(m); });
+      li.appendChild(lb); legend.appendChild(li);
+    });
+    scroll.scrollTop = 0;
+    layout(); setPos(pos);
+  }
+
+  function reveal(m) {
+    var top = Math.max(0, m.ay * s - 140);
+    stage.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    scroll.scrollTo({ top: top, behavior: reduce ? 'auto' : 'smooth' });
+    var need = Math.min(1, (m.ax * s + 90) / stage.clientWidth);
+    if (side) return;
+    if (pos < need) animateTo(need, 500);
+  }
+
+  // dragging and keys
+  var dragging = false;
+  function fromEvent(e) { var r = stage.getBoundingClientRect(); setPos((e.clientX - r.left) / r.width); }
+  handle.addEventListener('pointerdown', function (e) { dragging = true; handle.setPointerCapture(e.pointerId); fromEvent(e); e.preventDefault(); });
+  handle.addEventListener('pointermove', function (e) { if (dragging) fromEvent(e); });
+  handle.addEventListener('pointerup', function () { dragging = false; });
+  handle.addEventListener('keydown', function (e) {
+    var step = e.shiftKey ? 0.1 : 0.02;
+    if (e.key === 'ArrowLeft') { setPos(pos - step); e.preventDefault(); }
+    else if (e.key === 'ArrowRight') { setPos(pos + step); e.preventDefault(); }
+    else if (e.key === 'Home') { setPos(0); e.preventDefault(); }
+    else if (e.key === 'End') { setPos(1); e.preventDefault(); }
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-demo]'), function (b) {
+    b.addEventListener('click', function () {
+      cur = b.dataset.demo;
+      Array.prototype.forEach.call(document.querySelectorAll('[data-demo]'), function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      build();
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-demo]'), function (x) { x.setAttribute('aria-pressed', x.dataset.demo === cur ? 'true' : 'false'); });
+
+  window.addEventListener('resize', layout);
+  build();
+  if (!still && !q.has('x')) { setPos(1); setTimeout(function () { animateTo(0.5, 1100); }, 350); }
+})();
+</script>
+</body>
+</html>

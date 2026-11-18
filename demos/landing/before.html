@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bodega Parcela 41</title>
+<!-- Demo page. Bodega Parcela 41 is a fictional winery. This is what a generated page for it tends to look like. Every claim and number is invented. -->
+<style>
+:root { --bg:#faf7f2; --ink:#2a1d1a; --muted:#7a6a62; --wine:#8b2e3c; --gold:#c9a24b; --line:#e8dfd3; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:"Inter", system-ui, sans-serif; line-height:1.6; }
+.wrap { max-width:1120px; margin:0 auto; padding:0 32px; }
+nav { display:flex; justify-content:space-between; align-items:center; padding:24px 0; border-bottom:1px solid var(--line); }
+nav .logo { font-family:"Playfair Display", Georgia, serif; font-size:24px; font-weight:600; }
+nav a { margin-left:28px; color:var(--muted); text-decoration:none; font-size:15px; }
+.hero { position:relative; text-align:center; padding:100px 0 72px; }
+.hero::before { content:""; position:absolute; inset:0; margin:auto; width:640px; height:380px; background:radial-gradient(circle, rgba(139,46,60,.22), rgba(168,85,247,.10) 60%, transparent 70%); filter:blur(40px); z-index:-1; }
+.badge { display:inline-flex; align-items:center; gap:8px; padding:6px 16px; border-radius:999px; background:#fff; border:1px solid var(--line); font-size:13px; box-shadow:0 2px 8px rgba(0,0,0,.05); }
+.dot { width:8px; height:8px; border-radius:50%; background:#22c55e; animation:pulse 2s infinite; }
+@keyframes pulse { 50% { opacity:.4; } }
+.eyebrow { margin:28px 0 12px; text-transform:uppercase; letter-spacing:.16em; font-size:12px; color:var(--gold); font-weight:600; }
+h1 { font-family:"Playfair Display", Georgia, serif; font-size:72px; line-height:1.05; margin:0 auto 24px; max-width:880px; letter-spacing:-.02em; }
+h1 em { font-style:italic; color:var(--wine); }
+.sub { font-size:20px; color:var(--muted); max-width:660px; margin:0 auto 36px; }
+.btn { display:inline-block; padding:14px 28px; border-radius:12px; text-decoration:none; font-weight:600; transition:all .3s ease; }
+.btn.primary { background:linear-gradient(135deg,#8b2e3c,#5e1a27); color:#fff; box-shadow:0 8px 20px rgba(139,46,60,.35); }
+.btn.ghost { border:1px solid var(--line); color:var(--ink); margin-left:12px; background:#fff; }
+.btn:hover { transform:translateY(-2px); }
+.featured { text-align:center; color:var(--muted); font-size:13px; letter-spacing:.1em; text-transform:uppercase; padding:20px 0 64px; }
+.featured span { margin:0 18px; font-weight:700; opacity:.6; }
+.section-title { text-align:center; font-family:"Playfair Display", Georgia, serif; font-size:42px; margin:0 0 12px; }
+.section-sub { text-align:center; color:var(--muted); margin:0 0 48px; }
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.feature-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:32px; box-shadow:0 10px 30px rgba(0,0,0,.05); transition:all .3s ease; }
+.feature-card:hover { transform:translateY(-4px); box-shadow:0 18px 40px rgba(0,0,0,.1); }
+.icon-box { width:48px; height:48px; border-radius:12px; background:rgba(139,46,60,.1); display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:20px; }
+.feature-card h3 { margin:0 0 8px; font-size:20px; }
+.feature-card p { margin:0; color:var(--muted); }
+.wines { margin-top:96px; }
+.wine-card { background:#fff; border:1px solid var(--line); border-radius:20px; padding:24px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.05); position:relative; transition:all .3s ease; }
+.wine-card:hover { transform:translateY(-4px); }
+.bottle { height:260px; border-radius:16px; background:linear-gradient(160deg,#f3e9dc,#e3d0b8); margin-bottom:20px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.bottle img { height:240px; width:auto; }
+.wine-card .tag { position:absolute; top:16px; right:16px; padding:4px 12px; border-radius:999px; background:var(--gold); color:#fff; font-size:12px; font-weight:600; }
+.wine-card h3 { margin:0 0 4px; font-family:"Playfair Display", Georgia, serif; font-size:24px; }
+.wine-card .price { font-size:20px; font-weight:700; color:var(--wine); margin-top:12px; }
+.stats { margin:96px 0; display:grid; grid-template-columns:repeat(3,1fr); gap:24px; text-align:center; }
+.stat-card { padding:32px; border-radius:16px; background:#f1e9dc; }
+.stat-card b { display:block; font-family:"Playfair Display", Georgia, serif; font-size:48px; }
+.stat-card span { color:var(--muted); font-size:14px; }
+.testimonial { background:#fff; border-radius:16px; border-left:4px solid var(--gold); padding:36px 40px; box-shadow:0 10px 30px rgba(0,0,0,.05); font-size:22px; font-family:"Playfair Display", Georgia, serif; }
+.testimonial small { display:block; margin-top:16px; font-family:"Inter", sans-serif; font-size:14px; color:var(--muted); }
+.cta { margin:96px 0 0; padding:72px 32px; border-radius:24px; text-align:center; color:#fff; background:linear-gradient(135deg,#2a1d1a,#6b2140); }
+.cta h2 { font-family:"Playfair Display", Georgia, serif; font-size:44px; margin:0 0 12px; }
+.cta p { margin:0 0 28px; opacity:.85; }
+.cta .btn.primary { background:#fff; color:#2a1d1a; box-shadow:none; }
+footer { margin-top:80px; padding:32px 0 48px; color:var(--muted); font-size:14px; display:flex; justify-content:space-between; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="logo">Parcela 41</div>
+    <div><a href="#">Our Wines</a><a href="#">Our Story</a><a href="#">Visit Us</a><a href="#">Contact</a></div>
+  </nav>
+
+  <section class="hero">
+    <span class="badge"><span class="dot"></span> 🍷 New: 2023 vintage now available</span>
+    <p class="eyebrow">Family winery · Ribera del Duero · Est. 1987</p>
+    <h1>Wine crafted with <em>passion</em></h1>
+    <p class="sub">Discover the art of winemaking where tradition meets modern elegance. It's not just wine, it's a journey through the terroir.</p>
+    <a class="btn primary" href="#">Explore our wines →</a><a class="btn ghost" href="#">Learn more</a>
+  </section>
+
+  <p class="featured">As featured in <span>Wine Weekly</span><span>Cellar Journal</span><span>Vino Review</span><span>The Sommelier</span></p>
+
+  <h2 class="section-title">Everything You Need To Experience Exceptional Wine</h2>
+  <p class="section-sub">Premium craftsmanship — built on generations of expertise.</p>
+  <div class="grid3">
+    <div class="feature-card"><div class="icon-box">🍇</div><h3>Sustainable Vineyards</h3><p>Seamlessly blending age-old practices with eco-conscious farming.</p></div>
+    <div class="feature-card"><div class="icon-box">🏺</div><h3>Traditional Aging</h3><p>Meticulously aged in handcrafted oak barrels for unparalleled depth.</p></div>
+    <div class="feature-card"><div class="icon-box">🥂</div><h3>Award-Winning</h3><p>Elevate your table with wines celebrated around the world.</p></div>
+  </div>
+
+  <div class="wines">
+    <h2 class="section-title">Our Signature Collection</h2>
+    <p class="section-sub">Hand-selected wines for every occasion.</p>
+    <div class="grid3">
+      <div class="wine-card"><span class="tag">Best Seller</span><div class="bottle"><img src="img/joven.png" alt="Joven 2023"></div><h3>Joven 2023</h3><p>Fresh and vibrant with notes of red berries.</p><div class="price">€14</div></div>
+      <div class="wine-card"><span class="tag">New</span><div class="bottle"><img src="img/crianza.png" alt="Crianza 2021"></div><h3>Crianza 2021</h3><p>Rich and balanced with hints of cocoa and spice.</p><div class="price">€24</div></div>
+      <div class="wine-card"><div class="bottle"><img src="img/reserva.png" alt="Reserva 2019"></div><h3>Reserva 2019</h3><p>Bold and complex, a true expression of the land.</p><div class="price">€42</div></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card"><b>35+</b><span>Years of tradition</span></div>
+    <div class="stat-card"><b>98</b><span>Points from critics</span></div>
+    <div class="stat-card"><b>10,000+</b><span>Happy customers</span></div>
+  </div>
+
+  <div class="testimonial">"The best Ribera I have ever tasted. Parcela 41 is a game-changer."<small>Elena Vargas · Sommelier · Madrid</small></div>
+
+  <section class="cta">
+    <h2>Ready to visit us?</h2>
+    <p>Join thousands of wine lovers who have already discovered Parcela 41.</p>
+    <a class="btn primary" href="#">Book a tasting →</a>
+  </section>
+
+  <hr>
+  <footer><span>© Bodega Parcela 41</span><span>Privacy · Terms · Cookies</span></footer>
+</div>
+</body>
+</html>

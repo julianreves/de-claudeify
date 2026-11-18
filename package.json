@@ -1,0 +1,46 @@
+{
+  "name": "de-claudeify",
+  "version": "1.0.0",
+  "description": "Remove the habits that make a design look AI-made. An agent skill and a zero-dependency scanner.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "de-claudeify": "bin/de-claudeify.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "assets",
+    "bin",
+    "scripts",
+    "references",
+    "agents",
+    "SKILL.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "agent-skill",
+    "design",
+    "linter",
+    "ai-slop",
+    "frontend"
+  ],
+  "scripts": {
+    "test": "node --test tests/",
+    "tells": "node scripts/gen-tells.mjs",
+    "demos": "node demos/render.mjs",
+    "scan:demos": "node scripts/scan.mjs demos/*/after.html --strict"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julianreves/de-claudeify.git"
+  },
+  "homepage": "https://github.com/julianreves/de-claudeify#readme",
+  "bugs": {
+    "url": "https://github.com/julianreves/de-claudeify/issues"
+  }
+}

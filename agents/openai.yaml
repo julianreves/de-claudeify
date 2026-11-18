@@ -1,0 +1,12 @@
+interface:
+  display_name: De-Claudeify
+  short_description: Design skill. Removes the habits that make a design look AI-made.
+  default_prompts:
+    - "$de-claudeify a landing page for <business>"
+    - "$de-claudeify clean <path to a page or deck>"
+    - "$de-claudeify scan <path>"
+
+policy:
+  allow_implicit_invocation: true
+
+dependencies: []

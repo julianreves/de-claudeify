@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Harvest report deck</title>
+<!-- Demo deck of three slides, each 1440 by 810. All figures are invented. This is what a generated deck tends to look like. -->
+<style>
+:root { --ink:#f8fafc; --muted:#c4b5d6; --accent:#c084fc; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Inter", system-ui, sans-serif; }
+.slide { position:relative; width:1440px; height:810px; padding:72px 96px; color:var(--ink); background:linear-gradient(135deg,#1a0b2e,#4a1d6e 60%,#7a1f4a); overflow:hidden; }
+.slide::after { content:""; position:absolute; right:-120px; top:-120px; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle,rgba(236,72,153,.4),transparent 70%); }
+.eyebrow { text-transform:uppercase; letter-spacing:.2em; font-size:14px; color:var(--accent); font-weight:600; margin:0 0 16px; }
+h1 { font-size:64px; margin:0 0 8px; background:linear-gradient(90deg,#fff,#e9d5ff); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.subtitle { font-size:20px; color:var(--muted); margin:0 0 48px; }
+.row { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; position:relative; z-index:1; }
+.card { padding:32px; border-radius:20px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); backdrop-filter:blur(12px); box-shadow:0 20px 50px rgba(0,0,0,.35); }
+.icon { width:52px; height:52px; border-radius:14px; background:rgba(192,132,252,.25); display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:20px; }
+.card b { display:block; font-size:56px; margin-bottom:6px; }
+.card h3 { margin:0 0 10px; font-size:22px; }
+.card p { margin:0; color:var(--muted); font-size:16px; line-height:1.5; }
+.footer { position:absolute; left:96px; right:96px; bottom:40px; display:flex; justify-content:space-between; font-size:13px; color:var(--muted); border-top:1px solid rgba(255,255,255,.2); padding-top:16px; }
+
+/* cover */
+.cover h1 { font-size:104px; margin-top:150px; line-height:1.02; }
+.cover .subtitle { font-size:26px; margin-top:20px; }
+.pill { display:inline-block; padding:8px 20px; border-radius:999px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); font-size:15px; font-weight:600; margin-top:12px; }
+
+/* chart slide */
+.panel { position:relative; z-index:1; padding:36px 40px; border-radius:24px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16); box-shadow:0 20px 50px rgba(0,0,0,.35); }
+.legend { display:flex; gap:24px; font-size:15px; color:var(--muted); margin-bottom:20px; }
+.legend i { display:inline-block; width:12px; height:12px; border-radius:50%; background:var(--accent); margin-right:8px; }
+.bars { display:flex; align-items:flex-end; gap:22px; height:260px; }
+.bars div { flex:1; border-radius:10px 10px 0 0; background:linear-gradient(180deg,#e879f9,#8b5cf6); }
+.months { display:flex; gap:22px; margin-top:10px; font-size:14px; color:var(--muted); }
+.months span { flex:1; text-align:center; }
+.insight { margin-top:22px; padding:14px 20px; border-radius:12px; background:rgba(192,132,252,.15); border-left:4px solid var(--accent); font-size:16px; position:relative; z-index:1; }
+</style>
+</head>
+<body>
+
+<div class="slide cover">
+  <p class="eyebrow">Annual report · 2026 · Internal</p>
+  <h1>Harvest Report 2026</h1>
+  <p class="subtitle">Insights · Results · Outlook</p>
+  <span class="pill">🍇 Confidential</span>
+  <div class="footer"><span>Parcela 41 — Board meeting</span><span>01 / 12</span></div>
+</div>
+
+<div class="slide">
+  <p class="eyebrow">Harvest report · Q4 2026 · Ribera del Duero</p>
+  <h1>Sales Overview</h1>
+  <p class="subtitle">Key insights · Trends · Opportunities</p>
+  <div class="row">
+    <div class="card"><div class="icon">🏬</div><b>46%</b><h3>In-store</h3><p>Still a significant share of orders, but trending down.</p></div>
+    <div class="card"><div class="icon">💻</div><b>54%</b><h3>Online</h3><p>Online has overtaken the shop for the first time ever.</p></div>
+    <div class="card"><div class="icon">🚀</div><b>+12%</b><h3>Growth</h3><p>Unlock seamless growth with a cutting-edge omnichannel strategy.</p></div>
+  </div>
+  <div class="footer"><span>Parcela 41 — Confidential</span><span>02 / 12</span></div>
+</div>
+
+<div class="slide">
+  <p class="eyebrow">Online channel · Mar to Sep · Share of orders</p>
+  <h1>Online Orders Growth</h1>
+  <p class="subtitle">Monthly trend · 2026</p>
+  <div class="panel">
+    <div class="legend"><span><i></i>Online share of orders</span></div>
+    <div class="bars"><div style="height:57%"></div><div style="height:63%"></div><div style="height:70%"></div><div style="height:76%"></div><div style="height:87%"></div><div style="height:94%"></div><div style="height:100%"></div></div>
+    <div class="months"><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span></div>
+  </div>
+  <div class="insight">💡 <b>Key insight:</b> Online is growing fast and now leads.</div>
+  <div class="footer"><span>Parcela 41 — Confidential</span><span>03 / 12</span></div>
+</div>
+
+</body>
+</html>

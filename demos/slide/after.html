@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Harvest report deck</title>
+<!-- Demo deck of three slides, each 1440 by 810. All figures are invented. This is the cleaned version of before.html. -->
+<style>
+:root { --red:#d62718; --white:#ffffff; --black:#000000; --ink:#111318; --muted:#6a7078; --yellow:#ffde00; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Arial, Helvetica, sans-serif; font-variant-numeric:tabular-nums; }
+.slide { position:relative; width:1440px; height:810px; overflow:hidden; }
+.slide p, .slide h1 { margin:0; }
+.small { position:absolute; font-size:13px; font-weight:500; }
+
+/* 1: cover */
+.s1 { background:var(--black); color:var(--white); }
+.s1 .year { position:absolute; right:-70px; bottom:-120px; font-size:600px; line-height:.8; font-weight:700; letter-spacing:-.075em; color:var(--red); }
+.s1 h1 { position:absolute; left:104px; top:96px; width:700px; font-size:92px; line-height:.98; letter-spacing:-.04em; font-weight:700; }
+.s1 mark { background:var(--yellow); color:var(--black); padding:0 .08em; }
+.s1 .small { left:104px; bottom:56px; color:#9aa0a8; }
+
+/* 2: the number */
+.s2 { background:var(--red); color:var(--white); }
+.s2 .num { position:absolute; right:-110px; bottom:-150px; font-size:660px; line-height:.8; font-weight:700; letter-spacing:-.075em; }
+.s2 h1 { position:absolute; left:104px; top:84px; width:560px; font-size:64px; line-height:1; letter-spacing:-.04em; font-weight:700; color:var(--black); }
+.s2 .lead { position:absolute; left:104px; top:340px; width:360px; font-size:23px; line-height:1.4; }
+.s2 .small { left:104px; bottom:56px; }
+.s2 .count { left:auto; bottom:auto; right:104px; top:92px; font-size:14px; font-weight:700; color:var(--black); }
+
+/* 3: the trend */
+.s3 { background:var(--white); color:var(--ink); }
+.s3 h1 { position:absolute; left:104px; top:84px; width:900px; font-size:60px; line-height:1.02; letter-spacing:-.035em; font-weight:700; }
+.s3 .chart { position:absolute; left:104px; right:104px; top:290px; height:400px; display:flex; align-items:flex-end; gap:34px; border-bottom:2px solid var(--ink); }
+.s3 .col { flex:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-start; height:100%; }
+.s3 .col b { font-size:28px; letter-spacing:-.02em; margin-bottom:10px; }
+.s3 .col i { display:block; width:100%; background:var(--ink); }
+.s3 .col.now b { color:var(--red); }
+.s3 .col.now i { background:var(--red); }
+.s3 .months { position:absolute; left:104px; right:104px; top:706px; display:flex; gap:34px; font-size:16px; color:var(--muted); }
+.s3 .months span { flex:1; }
+.s3 .small { left:104px; bottom:34px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="slide s1">
+  <p class="year" aria-hidden="true">2026</p>
+  <h1>Here is how our <mark>2026 harvest</mark> went.</h1>
+  <p class="small">Bodega Parcela 41, board meeting, 14 November.</p>
+</div>
+
+<div class="slide s2">
+  <p class="num" aria-label="54 percent">54%</p>
+  <h1>Online orders overtook the shop in September.</h1>
+  <p class="lead">The shop still takes 46 percent of orders, and its share has fallen every month this year.</p>
+  <p class="small">Source: illustrative data for this demo.</p>
+  <p class="small count">02 / 03</p>
+</div>
+
+<div class="slide s3">
+  <h1>Online orders have grown every month since March.</h1>
+  <div class="chart" role="img" aria-label="Online share of orders by month: March 31, April 34, May 38, June 41, July 47, August 51, September 54 percent">
+    <div class="col"><b>31%</b><i style="height:57%"></i></div>
+    <div class="col"><b>34%</b><i style="height:63%"></i></div>
+    <div class="col"><b>38%</b><i style="height:70%"></i></div>
+    <div class="col"><b>41%</b><i style="height:76%"></i></div>
+    <div class="col"><b>47%</b><i style="height:87%"></i></div>
+    <div class="col"><b>51%</b><i style="height:94%"></i></div>
+    <div class="col now"><b>54%</b><i style="height:100%"></i></div>
+  </div>
+  <div class="months"><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span></div>
+  <p class="small">Source: illustrative data for this demo. Online share of orders per month.</p>
+</div>
+
+</body>
+</html>
